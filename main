@@ -1,1 +1,39 @@
+// Файл Shar.h
+#pragma once
+#include <iostream>
+#include <cmath>
 
+using namespace std;
+
+class Shar {
+protected:
+    double x, y, z; // координаты центра
+    double r; // радиус
+public:
+    Shar() : x(0), y(0), z(0), r(0) {}
+    Shar(double x, double y, double z, double r) : x(x), y(y), z(z), r(r) {}
+    virtual ~Shar() {}
+    void setX(double x) { this->x = x; }
+    void setY(double y) { this->y = y; }
+    void setZ(double z) { this->z = z; }
+    void setR(double r) { this->r = r; }
+    double getX() const { return x; }
+    double getY() const { return y; }
+    double getZ() const { return z; }
+    double getR() const { return r; }
+    virtual void show() const {
+        cout << "Координаты центра: (" << x << ", " << y << ", " << z << ")" << endl;
+        cout << "Радиус: " << r << endl;
+    }
+    void move(double dx, double dy, double dz) {
+        x += dx;
+        y += dy;
+        z += dz;
+    }
+    void resize(double dr) {
+        r += dr;
+    }
+    virtual double volume() const {
+        return (4.0 / 3.0) * M_PI * pow(r, 3);
+    }
+};
