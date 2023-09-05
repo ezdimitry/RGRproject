@@ -37,3 +37,103 @@ public:
         return (4.0 / 3.0) * M_PI * pow(r, 3);
     }
 };
+// Файл Krug.h
+#pragma once
+#include "Shar.h"
+
+class Krug : public Shar {
+public:
+    Krug() : Shar() {}
+    Krug(double x, double y, double z, double r) : Shar(x, y, z, r) {}
+    ~Krug() {}
+    virtual void show() const {
+        cout << "Координаты центра: (" << x << ", " << y << ", " << z << ")" << endl;
+        cout << "Радиус: " << r << endl;
+    }
+    virtual double volume() const {
+        return M_PI * pow(r, 2);
+    }
+    double length() const {
+        return 2 * M_PI * r;
+    }
+};
+
+// Файл main.cpp
+#include "Shar.h"
+#include "Krug.h"
+
+int main() {
+    Shar* s = new Shar(1, 2, 3, 4);
+    Krug* k = new Krug(5, 6, 7, 8);
+
+    cout << "Информация о шаре:" << endl;
+    s->show();
+    cout << "Объем шара: " << s->volume() << endl;
+
+    cout << "Информация о круге:" << endl;
+    k->show();
+    cout << "Площадь круга: " << k->volume() << endl;
+    cout << "Длина окружности: " << k->length() << endl;
+
+    int choice;
+    do {
+        cout << "Выберите действие: " << endl;
+        cout << "1. Переместить объект" << endl;
+        cout << "2. Изменить радиус" << endl;
+        cout << "3. Изменить координаты центра" << endl;
+        cout << "4. Вычислить объем/площадь и длину окружности" << endl;
+        cout << "5. Выход" << endl;
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                double dx, dy, dz;
+                cout << "Введите значения смещения по осям x, y, z: ";
+                cin >> dx >> dy >> dz;
+                s->move(dx, dy, dz);
+                k->move(dx, dy, dz);
+                break;
+            }
+            case 2: {
+                double dr;
+                cout << "Введите значение изменения радиуса: ";
+                cin >> dr;
+                s->resize(dr);
+                k->resize(dr);
+                break;
+            }
+            case 3: {
+                double x, y, z;
+                cout << "Введите новые координаты центра: ";
+                cin >> x >> y >> z;
+                s->setX(x);
+                s->setY(y);
+                s->setZ(z);
+                k->setX(x);
+                k->setY(y);
+                k->setZ(z);
+                break;
+            }
+           case 4: {
+    cout << "Информация о шаре:" << endl;
+    s->show();
+    cout << "Объем шара: " << s->volume() << endl;
+
+    cout << "Информация о круге:" << endl;
+    k->show();
+    cout << "Площадь круга: " << k->volume() << endl;
+    cout << "Длина окружности: " << k->length() << endl;
+    break;
+}
+            case 5:
+                break;
+            default:
+                cout << "Неверный выбор" << endl;
+        }
+    } while (choice != 5);
+
+    delete s;
+    delete k;
+
+    return 0;
+}
